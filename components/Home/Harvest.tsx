@@ -10,7 +10,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 const totalsupplymax= 31000000
 export function Harvest() {
     const { global,userLockedNFT} = useAppSelector((state) => state.pools);
-console.log(userLockedNFT.earn);
+
 
     const {config} = useTrsansationHelperForStaicCall("harvest")
     const { writeAsync: Harvest, write, data, isSuccess, error } = useContractWrite(config)

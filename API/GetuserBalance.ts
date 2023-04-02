@@ -23,9 +23,9 @@ function filterNFTs(nftData: nftdata[], allowedAddress: string, allowedTokenIds:
 
   export const GetallNFTBYwallet = createAsyncThunk(
     'GetallNFTBYwallet',
-    async (params: { data:string}, { dispatch }) => {
+    async (params: { data:string | undefined}, { dispatch }) => {
       const output = await axios.get(
-            `https://deep-index.moralis.io/api/v2/0xC1D9F4A29e2CF1B5cb93b7DF76358af84301eA32/nft?chain=eth&format=decimal&media_items=false`,
+            `https://deep-index.moralis.io/api/v2/${params.data}/nft?chain=eth&format=decimal&media_items=false`,
             options
           );
        return filterNFTs(output.data.result,Collectionaddress,AllowNFTID);

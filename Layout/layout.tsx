@@ -14,7 +14,7 @@ const  Layout = (props:any)=> {
    const dispatch = useAppdispatch()
 
 useEffect(()=>{
-  dispatch(GetallNFTBYwallet({data:"asa"}));
+  dispatch(GetallNFTBYwallet({data:address}));
   dispatch(fetchUserLockData(address))
 },[address])
 
