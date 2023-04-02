@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components{
+    .btn {
+     @apply   text-white bg-[#790082] w-full px-2 py-2 rounded-lg font-medium
+    }
+    .box {
+      @apply   text-white bg-[#790082] rounded-lg font-medium
+    }
+    .bigBox {
+      @apply w-11/12 md:max-w-[400px]  flex flex-col gap-3  h-full m-auto relative
+    }
+  
+   
+}
+
+html{
+    scroll-behavior:smooth !important;
+	position: relative;
+  background-color: black;
+}
+
