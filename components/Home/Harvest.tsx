@@ -6,11 +6,11 @@ import { toast } from 'react-hot-toast';
 import { useAppdispatch, useAppSelector } from "../../hooks/redux";
 import { formatNumber } from '../../utils/formatNumber';
 import ScaleLoader from "react-spinners/ScaleLoader";
-
+import { useAccount } from 'wagmi';
 const totalsupplymax= 31000000
 export function Harvest() {
     const { global,userLockedNFT} = useAppSelector((state) => state.pools);
-
+  const {address} = useAccount();
 
     const {config} = useTrsansationHelperForStaicCall("harvest")
     const { writeAsync: Harvest, write, data, isSuccess, error } = useContractWrite(config)
@@ -32,7 +32,13 @@ export function Harvest() {
 
 
     const HandleHarvest = ()=>{
+      if(!address){
+        toast.error("Walllet not connected",{
+          duration: 9000,
+      });
+      }else{
         Harvest?.();
+      }
     }
 
 

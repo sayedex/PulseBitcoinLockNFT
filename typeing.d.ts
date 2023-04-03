@@ -24,5 +24,6 @@ export type Global = {
     totalBurned:any,
     totalharvest:any,
     totalsupply:any
+    totalstaked:any
 
 }

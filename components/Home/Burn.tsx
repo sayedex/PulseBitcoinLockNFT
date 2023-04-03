@@ -1,5 +1,5 @@
 import React from 'react'
-import burnimg from "../../public/icon/burns.png"
+import burnimg from "../../public/icon/flames.png"
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 import { formatNumber } from '../../utils/formatNumber';
@@ -7,12 +7,14 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import { useTrsansationHelperForStaicCall } from '../../hooks/Trsansation';
 import { toast } from 'react-hot-toast';
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
-import {fetchGlobal} from "../../API/GetGlobalinfo"
+import {fetchGlobal} from "../../API/GetGlobalinfo";
+import { useAccount } from 'wagmi';
 export function Burn() {
+  const {address} = useAccount();
     const { global} = useAppSelector((state) => state.pools);
     const dispatch = useAppdispatch();
     const {config} = useTrsansationHelperForStaicCall("BurnToken");
-
+  
     const { writeAsync: Burn, write, data, isSuccess, error } = useContractWrite(config)
     const { isLoading, isFetching, isFetched, } = useWaitForTransaction({
       hash: data?.hash,
@@ -35,11 +37,14 @@ export function Burn() {
     
 
     const HandleBurn = ()=>{
-      if(global.burnPool ==0){
-        toast.error("Burnpool 0",{
+      if(!address){
+        toast.error("Walllet not connected",{
           duration: 9000,
       });
-      Burn?.();
+      }else if(global.burnPool ==0){
+        toast.error("Burnpool 0",{
+          duration: 9000,
+      })
       }else{
         Burn?.();
       }

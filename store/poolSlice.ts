@@ -31,7 +31,8 @@ const initialState: PoolsState = {
     totalBurned:0,
     totalharvest:0,
     totalsupply:0,
-    burnPool:0
+    burnPool:0,
+    totalstaked:0
   },
   userNTCbalance:"0"
 

@@ -39,17 +39,17 @@ export function Header() {
 
 
     return (
-        <Popover className=" bg-[#690082]  sticky top-[0px] w-full">
+        <Popover className=" bg-[#690082] z-50 sticky top-[0px] w-full">
             <div className=' bg-opacity-[75%] dark:border-secondary-dark transform backdrop-blur-md text-black dark:text-white z-50  w-full h-[85px] px-6 md:px-10 flex  items-center justify-between'>
 
                 <div className="cursor-pointer flex justify-center items-center">
                     {/* logo */}
                     <LazyLoadImage
                         src={NTCLOGO.src}
-                        width={50}
+                        width={80}
                         alt="NTC"
-                        className="  cursor-pointer"
-                        height={50} />
+                        className=" cursor-pointer"
+                        height={80} />
     
                     <div className="text-xl hidden md:block font-bold font-[Nexa] ml-2 text-white text-center ">The Royalty Mine<br/><span> - Nightcoin</span></div>
                     <div className="text-xl md:hidden font-bold font-[Nexa] ml-2 text-white">NTC</div>

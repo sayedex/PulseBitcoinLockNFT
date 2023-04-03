@@ -28,7 +28,7 @@ export function Lock() {
   }
  
  }
- console.log(userLockedNFT?.locktoken.length);
+ 
  
 
  const HanleUnlockOpen = ()=>{
@@ -63,7 +63,7 @@ export function Lock() {
 
     {/* text */}
 <div className='box p-3 text-center bg-black  border-2 border-[#790082]'>
-<h2 className='text-white'>Burnt Royalties {userNFT.length} of 33</h2>
+<h2 className='text-white'>{`"Burnt Royalties: ${userNFT.length} of 33"`} </h2>
 </div>
      {/* text */}
 

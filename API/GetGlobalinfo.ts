@@ -13,6 +13,8 @@ export const GLOBAL = gql`
     totalsupply
     totalharvest
     burnPool
+    totalstaked
+
   }
   }
 `;
