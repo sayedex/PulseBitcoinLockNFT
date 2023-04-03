@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { usePrepareContractWrite, } from 'wagmi';
 import tokenABI from "../config/ABI/Token.json";
-import { Testaddresss } from '../config';
+import { Staking } from '../config';
 export const useTrsansationHelper = (contractAddress:string,args:any,fname:string,tokenABI:any) => {
 
 
@@ -25,7 +25,7 @@ export const useTrsansationHelper = (contractAddress:string,args:any,fname:strin
 
 
 export const useTrsansationHelperForStaicCall = (fname:string) => {
-  const pooladress = Testaddresss?.slice(2);
+  const pooladress = Staking?.slice(2);
   const { config, isError, isLoading: loadInstance } = usePrepareContractWrite({
     address: `0x${pooladress}`,
     abi: tokenABI.abi,

@@ -9,16 +9,16 @@ import { ethers } from 'ethers';
 import { Toast, toast } from 'react-hot-toast';
 import { AddID } from '../../store/poolSlice';
 import TokenABI from "../../config/ABI/Token.json";
-import { Collectionaddress, Testaddresss } from '../../config';
+import { Collectionaddress, Staking } from '../../config';
 import { Showlist } from "./Showlist"
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
 import { ContentStyle, OverlayStyle } from './config';
 import { useTrsansationHelper } from '../../hooks/Trsansation';
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { useApprove } from '../../hooks/useApprove';
-import { GetallNFTBYwallet,GetUserMintedValue } from "../../API/GetuserBalance";
+import { GetallNFTBYwallet,GetUserMintedValue,GetGlonalStaticinfo } from "../../API/GetuserBalance";
 import {fetchUserLockData} from "../../API/Getuserinfo";
-
+import { fetchGlobal } from '../../API/GetGlobalinfo';
 import { RemovelockID } from '../../store/poolSlice';
 type Props = {
 
@@ -35,13 +35,13 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
 
 
   const { config: lockMultiple } = useTrsansationHelper(
-    Testaddresss,
+    Staking,
     [usersellectedIDlock],
     "lockMultiple",
     TokenABI
   )
   const { config: lock } = useTrsansationHelper(
-    Testaddresss,
+    Staking,
     usersellectedIDlock,
     "lock",
     TokenABI
@@ -73,21 +73,23 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
     onSettled(data, error) {
       if (data) {
         toast.success("Locked Successfully", {
-          duration: 2000,
+          duration: 3000,
         });
-        dispatch(RemovelockID())
+        dispatch(RemovelockID());
         setOpen(false);
         if(address){
+          dispatch(GetUserMintedValue({data:address}))
+          dispatch(GetGlonalStaticinfo());
           setTimeout(() => {
+            dispatch(fetchGlobal());
             dispatch(fetchUserLockData(address));
           }, 5000);
         }}
-        dispatch(GetUserMintedValue(address))
       
     },
     onError() {
       toast.error("Something wrong try again", {
-        duration: 4000,
+        duration: 3000,
       });
     }
   });
@@ -98,13 +100,16 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
     onSettled(data, error) {
       if (data) {
         toast.success("Locked Successfully", {
-          duration: 2000,
+          duration: 3000,
         });
         dispatch(RemovelockID());
+    
         setOpen(false);
         if(address){
-          dispatch(GetUserMintedValue(address))
+          dispatch(GetUserMintedValue({data:address}))
+          dispatch(GetGlonalStaticinfo());
           setTimeout(() => {
+            dispatch(fetchGlobal());
             dispatch(fetchUserLockData(address));
           }, 5000);
         }
@@ -114,7 +119,7 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
     },
     onError() {
       toast.error("Something wrong try again", {
-        duration: 2000,
+        duration: 3000,
       });
     }
   });

@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import TokenABI from "../config/ABI/Token.json"
 import { nftdata} from '../typeing';
 import { AllowNFTID ,Collectionaddress} from '../config';
-import { Getbalance,GetmintedBalance } from './Contractinfo';
+import { Getbalance,GetmintedBalance,Allinfo } from './Contractinfo';
 import axios from "axios";
 
   const options = {method: 'GET', headers: {Accept: 'application/json', 'X-API-Key': 'hfFDDgyJiGcA93sEfRWQF61kqPD66rc7etsRDlEjjOZxQ3LVNZKMYRyB2Na3vx6f'}};
@@ -42,12 +42,19 @@ function filterNFTs(nftData: nftdata[], allowedAddress: string, allowedTokenIds:
     'getCalculatedBalance',
     async (params: { data:string}, { dispatch }) => {
           const getmintedbalance = await GetmintedBalance(params.data);
-          console.log(getmintedbalance);
-          
-          return [getmintedbalance]
+          const balance = await Getbalance(params.data);
+          return {getmintedbalance,balance}
 
     }
   );  
 
   
 
+  export const GetGlonalStaticinfo = createAsyncThunk(
+    'GetGlonalStaticinfo',
+    async () => {
+        const data  = await Allinfo();
+        return data;
+
+    }
+  );  

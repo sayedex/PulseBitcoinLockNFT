@@ -9,7 +9,7 @@ import { ethers } from 'ethers';
 import { Toast, toast } from 'react-hot-toast';
 import { AddID ,AddIDUnlock} from '../../store/poolSlice';
 import TokenABI from "../../config/ABI/Token.json";
-import { Collectionaddress, Testaddresss } from '../../config';
+import { Collectionaddress, Staking } from '../../config';
 import { Showlist } from "./Showlist"
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from 'wagmi';
 import { ContentStyle, OverlayStyle } from './config';
@@ -17,8 +17,8 @@ import { useTrsansationHelper } from '../../hooks/Trsansation';
 import ScaleLoader from "react-spinners/ScaleLoader";
 import {RemoveunlockID} from "../../store/poolSlice"
 import { fetchUserLockData } from '../../API/Getuserinfo';
-import { GetallNFTBYwallet,GetUserMintedValue } from "../../API/GetuserBalance";
-
+import { GetallNFTBYwallet,GetUserMintedValue,GetGlonalStaticinfo } from "../../API/GetuserBalance";
+import { fetchGlobal } from '../../API/GetGlobalinfo';
 type Props = {
 
   Input?: any,
@@ -32,13 +32,13 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
   const [open, setOpen] = useState(false);
 
   const { config: unlockMultiple } = useTrsansationHelper(
-    Testaddresss,
+    Staking,
     [usersellectedIDunlock],
     "unlockMultiple",
     TokenABI
   )
   const { config: unlock } = useTrsansationHelper(
-    Testaddresss,
+    Staking,
     usersellectedIDunlock,
     "unlock",
     TokenABI
@@ -68,24 +68,25 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
     onSettled(data, error) {
       if (data) {
         toast.success("Unlocked Successfully",{
-            duration: 2000,
+            duration: 3000,
         });
+        dispatch(RemoveunlockID())
+        setOpen(false);
         if(address){
           dispatch(GetUserMintedValue({data:address}));
+          dispatch(GetGlonalStaticinfo());
           setTimeout(() => {
+            dispatch(fetchGlobal());
             dispatch(GetallNFTBYwallet({data:address}));
-          }, 4000);
-          dispatch(RemoveunlockID())
-          setOpen(false);
+          }, 5000);
          }
-   
 
-    
+      
       }
     },
     onError(){
         toast.error("Something wrong try again",{
-            duration: 2000,
+            duration: 3000,
         });
       }
   });
@@ -96,11 +97,14 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
     onSettled(data, error) {
       if (data) {
         toast.success("Unlocked Successfully",{
-            duration: 2000,
+            duration: 3000,
         });
+
         if(address){
           dispatch(GetUserMintedValue({data:address}))
+          dispatch(GetGlonalStaticinfo());
           setTimeout(() => {
+            dispatch(fetchGlobal());
             dispatch(GetallNFTBYwallet({data:address}));
           }, 4000);
           dispatch(RemoveunlockID())
@@ -110,7 +114,7 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
     },
     onError(){
         toast.error("Something wrong try again",{
-            duration: 2000,
+            duration: 3000,
         });
       }
   });

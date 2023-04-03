@@ -1,10 +1,10 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction, current, Slice } from "@reduxjs/toolkit";
-import { nftdata, userLockedNFT, Global } from "../typeing";
+import { nftdata, userLockedNFT, Global,HomeInfo } from "../typeing";
 import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
-import { GetallNFTBYwallet, GetUserMintedValue } from "../API/GetuserBalance"
-import { fetchUserLockData } from "../API/Getuserinfo";
+import { GetallNFTBYwallet, GetUserMintedValue ,GetGlonalStaticinfo} from "../API/GetuserBalance"
+import { fetchUserLockData ,} from "../API/Getuserinfo";
 import { fetchGlobal } from "../API/GetGlobalinfo"
 interface PoolsState {
   active: boolean,
@@ -12,11 +12,12 @@ interface PoolsState {
   usersellectedIDlock: number[],
   usersellectedIDunlock: number[]
   userLockedNFT: userLockedNFT,
-  global: Global
   userNTCbalance: string,
   userpedingbalance:string,
   loadnft:"idle" | "loading" | "done",
   loadLocknft:"idle" | "loading" | "done",
+  homeinfo:HomeInfo,
+  userTotalminted:string
 }
 
 
@@ -30,17 +31,17 @@ const initialState: PoolsState = {
     locktoken: [],
     earn: 0
   },
-  global: {
-    totalBurned: 0,
-    totalharvest: 0,
-    totalsupply: 0,
-    burnPool: 0,
-    totalstaked: 0
-  },
   userNTCbalance: "0",
   userpedingbalance:"0",
   loadnft:'idle',
-  loadLocknft:'idle'
+  loadLocknft:'idle',
+  homeinfo:{
+    burnPool:"0",
+    totalBurned:"0",
+    totalsupply:"0",
+    totalstaked:"0"
+  },
+  userTotalminted:"0"
 
 };
 
@@ -105,19 +106,22 @@ const poolsSlice = createSlice({
         state.loadLocknft = 'done'
 
       }),
-      builder.addCase(fetchGlobal.fulfilled, (state, action: PayloadAction<any>) => {
-        state.global = action.payload;
-
+      builder.addCase(GetUserMintedValue.fulfilled, (state, action) => {
+        const {totalminedByusers,calculateReward} = action.payload.getmintedbalance;
+        state.userNTCbalance = action.payload.balance;
+        state.userTotalminted  = totalminedByusers;
+        state.userpedingbalance = calculateReward;
 
       }),
-      builder.addCase(GetUserMintedValue.fulfilled, (state, action: PayloadAction<any>) => {
-        state.userpedingbalance = action.payload[0];
-
-
+      builder.addCase(GetGlonalStaticinfo.fulfilled, (state, action) => {
+        if(action.payload){
+          state.homeinfo = action.payload;
+        }
       })
   },
 });
 
+//GetGlonalStaticinfo
 export const { AddID, AddIDUnlock,RemovelockID ,RemoveunlockID} = poolsSlice.actions;
 export default poolsSlice.reducer;
 

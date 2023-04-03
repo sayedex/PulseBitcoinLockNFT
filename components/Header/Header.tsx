@@ -6,11 +6,11 @@ import logo from "../../public/logo.webp"
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import {SocialItem} from "./config";
+import {SocialItem} from "../../config/config";
 import { Tokenbox } from './Tokenbox';
 import NTCLOGO from "../../public/Token/NTCLOGO.png";
 import pulsebitcoin from "../../public/Token/pulsebitcoin.png";
-import { HeaderItem  } from './config';
+import { HeaderItem  } from '../../config/config';
 import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 export function Header() {
     const { theme, setTheme } = useTheme();
@@ -21,19 +21,7 @@ export function Header() {
     useEffect(() => {
         setIsMounted(true);
     }, []);
-    const ChangeToDarkMood = () => {
-        if (isMounted) {
-            setTheme(theme === "light" ? "dark" : "light");
-        }
-    }
-
-
-
-
-
-
-
-
+ 
 
 
 

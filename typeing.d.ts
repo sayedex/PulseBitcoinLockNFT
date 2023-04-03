@@ -20,10 +20,14 @@ export type userLockedNFT={
 }
 
 export type Global = {
-    burnPool:any,
-    totalBurned:any,
-    totalharvest:any,
-    totalsupply:any
     totalstaked:any
 
+}
+
+
+export type HomeInfo = {
+    burnPool:string,
+    totalBurned:string,
+    totalsupply:string
+    totalstaked:string
 }

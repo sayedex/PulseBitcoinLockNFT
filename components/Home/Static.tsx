@@ -4,7 +4,7 @@ import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 import crown from "../../public/Token/crown.png"
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 export const Static = () => {
-  const { active, userNFT,global} = useAppSelector((state) => state.pools);
+  const { active, userNFT,homeinfo} = useAppSelector((state) => state.pools);
 
   return (
     <div className='flex flex-wrap lg:flex-row m-2 md:m-0 gap-x-5 gap-y-5 sm:p-0 md:p-8   mr-auto  z-0 	items-center '>
@@ -23,7 +23,7 @@ export const Static = () => {
 
  <h2>Global Royality</h2> 
  <h2>Mining Power</h2> 
- <h2>{global?.totalstaked} of 32</h2> 
+ <h2>{homeinfo?.totalstaked} of 32</h2> 
 
 </div>
 {/* box */}

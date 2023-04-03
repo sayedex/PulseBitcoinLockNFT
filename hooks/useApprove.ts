@@ -4,7 +4,7 @@ import tokenabi from "../config/ABI/Token.json"
 // import { provider } from '../utils/providerweb3';
 import erc721 from "../config/ABI/erc721.json"
 import { ethers } from 'ethers';
-import { erc721 as Contrctaddressforcollection,Testaddresss } from "../config/index"
+import { erc721 as Contrctaddressforcollection, Staking} from "../config/index"
 import { usePrepareContractWrite, useContractWrite, useWaitForTransaction, useProvider } from 'wagmi';
 export const useApprove = ( user: any, dispatch: any) => {
   const [tokenAllowance, setTokenAllowance] = useState(false);
@@ -15,7 +15,7 @@ export const useApprove = ( user: any, dispatch: any) => {
     address: `0x${pooladress}`,
     abi: erc721.abi,
     functionName: "setApprovalForAll",
-    args: [Testaddresss, 1],
+    args: [Staking, 1],
     onError(data) {
       console.log("data", data);
 
@@ -42,7 +42,7 @@ export const useApprove = ( user: any, dispatch: any) => {
       if (!user  && !provider) return;
       try {
         const contract = new ethers.Contract(Contrctaddressforcollection, erc721.abi, provider);
-        const fetchUserAllowance = await contract.isApprovedForAll(user, Testaddresss);
+        const fetchUserAllowance = await contract.isApprovedForAll(user, Staking);
         setTokenAllowance(fetchUserAllowance);
         setloadinstance(true)
       } catch (error) {

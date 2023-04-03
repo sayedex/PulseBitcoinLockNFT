@@ -9,10 +9,6 @@ import { gql } from 'graphql-request';
 export const GLOBAL = gql`
   query globals{
     globals{
-    totalBurned
-    totalsupply
-    totalharvest
-    burnPool
     totalstaked
 
   }
@@ -31,3 +27,6 @@ export const fetchGlobal = createAsyncThunk(
     }
   }
 );
+
+
+
