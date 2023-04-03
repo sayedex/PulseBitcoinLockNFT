@@ -138,12 +138,12 @@ export function Header() {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0">
                         <Popover.Panel
-                            className="absolute z-20 inset-0 top-[80px] bg-white dark:bg-primary-dark 	">
-                            <div className="flex flex-col items-start bg-white w-full dark:bg-[#1c1b22] dark:rounded-lg pt-2">
+                            className="absolute z-20 inset-0 top-[80px] bg-black dark:bg-primary-dark 	">
+                            <div className="flex flex-col items-start bg-black  w-full pb-5 dark:bg-[#1c1b22] dark:rounded-lg pt-2">
                                 {
                                     HeaderItem && HeaderItem.map((e, index) => {
                                         return <>
-                                            <a target='_blank' rel="noreferrer" className="w-full relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark hover:bg-gray-100 dark:hover:bg-slate-800 p-4 transition-all"
+                                            <a target='_blank' rel="noreferrer" className="w-full text-white relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark hover:bg-gray-500 dark:hover:bg-slate-800 p-4 transition-all"
                                                 href={`${e.link}`}>
                                                 <span>{e.name}</span>
                                             </a>
@@ -156,19 +156,28 @@ export function Header() {
 
 
 
-                                <div className="flex items-center gap-4 p-4">
+                                <div className="flex  items-center gap-4 p-4">
                                 
                                     <div className='flex flex-row gap-2'>
                     {/* social icon... */}
                     {SocialItem?.map((el,indx)=>{
                         return (
-                            <a key={indx} className='bg-black p-2 rounded-full' href={el.link} target="_blank" rel="noopener noreferrer">
+                            <a key={indx} className='p-2 rounded-full' href={el.link} target="_blank" rel="noopener noreferrer">
 
                                 <el.icon className='text-white'></el.icon>
                             </a>)
                     })}
                 </div>
+
+        
+                 
                                 </div>
+
+                    <div className='ml-10 bg-black flex flex-row gap-x-10' >
+                    <Tokenbox img={NTCLOGO} value={Number(userNTCbalance)} token="NTTC"/>
+                    <Tokenbox img={pulsebitcoin} value={userNFT?.length} token="NTTC"/>
+
+                    </div>
                             </div>
 
 
