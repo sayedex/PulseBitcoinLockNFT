@@ -80,10 +80,13 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
 
 
   const handleMint = async () => {
-    if (usersellectedIDunlock.length < 0) {
+    if (usersellectedIDunlock.length <= 1) {
         unlocks?.();
+        console.log("sdas");
+        
     } else {
-        unlockMultipleCall?.()
+        unlockMultipleCall?.();
+        
     }
   }
 
@@ -136,7 +139,7 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
 
           <div className='flex flex-row w-full justify-center gap-5 px-6 mb-4'>
 
-            <button disabled={isLoading} onClick={() => handleMint()} className='bg-[#ae1bc7] text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
+            <button disabled={isLoading} onClick={() => handleMint()} className='bg-[#ae1bc7] uppercase text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
             
             {isLoading?"":"Unlock"}
     <ScaleLoader

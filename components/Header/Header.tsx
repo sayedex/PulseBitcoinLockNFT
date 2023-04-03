@@ -6,34 +6,16 @@ import logo from "../../public/logo.webp"
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import {SocialItem} from "./config"
+import {SocialItem} from "./config";
+import { Tokenbox } from './Tokenbox';
+import NTCLOGO from "../../public/Token/NTCLOGO.png";
+import pulsebitcoin from "../../public/Token/pulsebitcoin.png";
+import { HeaderItem  } from './config';
+import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 export function Header() {
     const { theme, setTheme } = useTheme();
     const [isMounted, setIsMounted] = useState(false);
-
-    const Header = [
-        {
-            id: 0,
-            name: "Home",
-            link: "/",
-        }, {
-            id: 0,
-            name: "info",
-            link: "/info",
-            islink: true,
-        }, {
-            id: 0,
-            name: "Buy",
-            link: "",
-        },
-        {
-            id: 0,
-            name: "Bscscan",
-            link: "",
-
-        },
-
-    ]
+    const { userNTCbalance,userNFT} = useAppSelector((state) => state.pools);
 
 
     useEffect(() => {
@@ -57,31 +39,26 @@ export function Header() {
 
 
     return (
-        <Popover className=" bg-[#690082]  sticky top-[0px] w-full h-[80px]">
-            <div className=' bg-opacity-[75%] dark:border-secondary-dark transform backdrop-blur-md text-black dark:text-white z-50 sticky top-[0px] w-full h-[80px] px-6 md:px-10 flex items-center justify-between'>
+        <Popover className=" bg-[#690082]  sticky top-[0px] w-full">
+            <div className=' bg-opacity-[75%] dark:border-secondary-dark transform backdrop-blur-md text-black dark:text-white z-50  w-full h-[85px] px-6 md:px-10 flex  items-center justify-between'>
 
                 <div className="cursor-pointer flex justify-center items-center">
                     {/* logo */}
                     <LazyLoadImage
-                        src={logo.src}
-                        width={30}
-                        alt="Solanart"
-                        className="hidden dark:block  cursor-pointer"
-                        height={30} />
-                    <LazyLoadImage
-                        src={logo.src}
-                        alt="Solanart"
-                        className="dark:hidden cursor-pointer"
-                        height={30}
-                        width={30}
-                    />
-                    <div className="text-xl font-bold font-[Nexa] ml-2 text-white">NTC</div>
+                        src={NTCLOGO.src}
+                        width={50}
+                        alt="NTC"
+                        className="  cursor-pointer"
+                        height={50} />
+    
+                    <div className="text-xl hidden md:block font-bold font-[Nexa] ml-2 text-white text-center ">The Royalty Mine<br/><span> - Nightcoin</span></div>
+                    <div className="text-xl md:hidden font-bold font-[Nexa] ml-2 text-white">NTC</div>
                 </div>
                 {/* logo */}
 
                 {/* ul */}
-                <div className='hidden lg:flex items-center gap-x-8'>
-                <div className='flex flex-row gap-2'>
+                <div className='hidden lg:flex lg:flex-row items-center gap-x-8'>
+                <div className='flex flex-row gap-2 mr-5'>
                     {/* social icon... */}
                     {SocialItem?.map((el,indx)=>{
                         return (
@@ -91,16 +68,22 @@ export function Header() {
                             </a>)
                     })}
                 </div>
-                    <ul className="flex gap-2 font-semibold whitespace-nowrap">
+                <div className='hidden lg:flex flex-row gap-x-10 items-center '>
+                    <Tokenbox img={NTCLOGO} value={Number(userNTCbalance)} token="NTTC"/>
+                    <Tokenbox img={pulsebitcoin} value={userNFT?.length} token="NTTC"/>
+                </div>
+
+
+                    <ul className="flex gap-1 font-semibold items-center">
 
                         {
-                            Header.map((e, index) => {
+                            HeaderItem.map((e, index) => {
                                 return (
                                     <li key={index}>
-                                        {!e.islink && <a target='_blank' rel="noreferrer" className="relative text-slate-50 flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark hover:bg-gray-100 dark:hover:bg-slate-800 p-4 transition-all"
+                                       <a target='_blank' rel="noreferrer" className="relative text-slate-50 flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark  dark:hover:bg-slate-800 p-4 transition-all"
                                             href={`${e.link}`}>
                                             <span>{e.name}</span>
-                                        </a>}
+                                        </a>
 
 
                                     </li>
@@ -158,7 +141,7 @@ export function Header() {
                             className="absolute z-20 inset-0 top-[80px] bg-white dark:bg-primary-dark 	">
                             <div className="flex flex-col items-start bg-white w-full dark:bg-[#1c1b22] dark:rounded-lg pt-2">
                                 {
-                                    Header && Header.map((e, index) => {
+                                    HeaderItem && HeaderItem.map((e, index) => {
                                         return <>
                                             <a target='_blank' rel="noreferrer" className="w-full relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark hover:bg-gray-100 dark:hover:bg-slate-800 p-4 transition-all"
                                                 href={`${e.link}`}>

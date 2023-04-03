@@ -24,3 +24,35 @@ html{
   background-color: black;
 }
 
+@media(max-width:700px){
+  .popup-content {
+    position: absolute!important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    padding-bottom: 1rem;
+    border-radius: 19px 19px 0 0;
+   width: 100% !important;
+    transition: all 1s;
+  }
+ } 
+
+ /* Hide the scrollbar */
+::-webkit-scrollbar {
+ width: 10px;
+}
+
+/* Add custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #6b7280;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background-color: #3b3837;
+}

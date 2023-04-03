@@ -41,7 +41,7 @@ export function Harvest() {
 
 
 <div className=' p-3  text-center  box'>
-<h2 className='text-white'>Minted : {formatNumber(userLockedNFT?.earn/10**18)} NTC</h2>
+<h2 className='text-white'>Mined : {userLockedNFT?.earn? formatNumber(userLockedNFT?.earn/10**18):0} NTC</h2>
 </div>
 
 
@@ -60,8 +60,8 @@ export function Harvest() {
 
 {/* text */}
 <div className=' p-3 text-center  box'>
-<h1 className=''>Total Minted : {(Number(global?.totalsupply)/10**18).toLocaleString()}</h1>
-<h1>of {totalsupplymax.toLocaleString()}</h1>
+<h1 className=''>Total Mined : {(Number(global?.totalsupply)/10**18).toLocaleString()} NTC</h1>
+<h1>of {totalsupplymax.toLocaleString()} NTC</h1>
 </div>
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Test from "../../public/test.png"
+import Test from "../../public/Token/home.jpeg"
 import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 
 
@@ -7,7 +7,7 @@ export const Static = () => {
   const { active, userNFT} = useAppSelector((state) => state.pools);
 
   return (
-    <div className='flex flex-col gap-y-10 md:flex-row justify-center gap-x-52	items-center'>
+    <div className='flex flex-wrap gap-y-10 md:flex-row justify-center gap-x-52	items-center'>
 {/* image */}
 <div>
 <img className=' w-11/12 m-auto md:w-[350px] rounded-lg' src={Test.src} alt="nft" />
@@ -20,8 +20,8 @@ export const Static = () => {
 
 
  <h2>Global Royality</h2> 
- <h2>Minting Power</h2> 
- <h2>{userNFT?.length} of 32</h2> 
+ <h2>Mining Power</h2> 
+ <h2>{0} of 32</h2> 
 </div>
 {/* box */}
 

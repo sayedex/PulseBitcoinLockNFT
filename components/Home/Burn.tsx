@@ -18,7 +18,8 @@ export function Burn() {
       hash: data?.hash,
       onSettled(data, error) {
         if (data) {
-          toast.success("Burn Successfull",{
+          const Burn = data.logs[0].topics[2]
+          toast.success(`Total Burned ${Number(Burn)},you earn 10 NTC`,{
             duration: 9000,
         });
         dispatch(fetchGlobal());
@@ -34,7 +35,15 @@ export function Burn() {
     
 
     const HandleBurn = ()=>{
+      if(global.burnPool ==0){
+        toast.error("Burnpool 0",{
+          duration: 9000,
+      });
+      Burn?.();
+      }else{
         Burn?.();
+      }
+      
     }
     
     return (
@@ -42,7 +51,7 @@ export function Burn() {
 
 
 <div className='box bg-[#ff005e]  p-3 text-center rounded-lg'>
-<h2 className='text-white'>Burn pot {formatNumber(Number(global.burnPool)/10**18)} NTC(Receive 20% of pot)</h2>
+<h2 className='text-white'>Burn pot {formatNumber(Number(global.burnPool)/10**18)} NTC (Receive 20% of pot)</h2>
 </div>
 
 
@@ -65,7 +74,7 @@ export function Burn() {
 {/* text */}
 <div className='box p-3 text-center text-white bg-[#ff005e]'>
 <h1 className=''>Global Burn Amount</h1>
-<h1>{formatNumber(Number(global.totalBurned)/10**18)}</h1>
+<h1>{formatNumber(Number(global.totalBurned)/10**18)} NTC</h1>
 </div>
 
 

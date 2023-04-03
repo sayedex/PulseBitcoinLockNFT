@@ -15,6 +15,7 @@ import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from
 import { ContentStyle, OverlayStyle } from './config';
 import { useTrsansationHelper } from '../../hooks/Trsansation';
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { useApprove } from '../../hooks/useApprove';
 
 type Props = {
 
@@ -27,6 +28,8 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
   const dispatch = useAppdispatch();
   const { active, userNFT, usersellectedIDlock } = useAppSelector((state) => state.pools);
   const [open, setOpen] = useState(false);
+  const { isLoading: Loadapprove, approveToken, tokenAllowance,loadinstance } = useApprove(address, dispatch);
+
 
   const { config: lockMultiple } = useTrsansationHelper(
     Testaddresss,
@@ -68,14 +71,14 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
     hash: data?.hash,
     onSettled(data, error) {
       if (data) {
-        toast.success("Locked Successfully",{
+        toast.success("Locked Successfully", {
           duration: 9000,
-      });
+        });
       }
     },
-    onError(){
-      toast.error("Something wrong try again",{
-          duration: 9000,
+    onError() {
+      toast.error("Something wrong try again", {
+        duration: 9000,
       });
     }
   });
@@ -86,13 +89,15 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
 
 
   const handleMint = async () => {
-    if (usersellectedIDlock.length < 0) {
+    if (usersellectedIDlock.length <= 1) {
       lockcall?.();
     } else {
       lockMultipleCall?.()
     }
   }
-
+  const handleApprove = async () => {
+    approveToken?.()
+  }
 
   const handleupdate = (tokenId: any) => {
     dispatch(AddID(tokenId))
@@ -142,19 +147,34 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
 
           <div className='flex flex-row w-full justify-center gap-5 px-6 mb-4'>
 
-            <button disabled={isLoading} onClick={() => handleMint()} className='bg-[#ae1bc7] text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
-            
-            {isLoading?"":"Lock"}
-    <ScaleLoader
-        loading={isLoading}
-        color="#ffffff"
-        className="text-white"
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-    
-            
-            </button>
+            {loadinstance && tokenAllowance && <button disabled={isLoading} onClick={() => handleMint()} className='bg-[#ae1bc7] uppercase text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
+
+              {isLoading ? "" : "Lock"}
+              <ScaleLoader
+                loading={isLoading}
+                color="#ffffff"
+                className="text-white"
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+
+
+            </button>}
+
+            {!tokenAllowance && <button disabled={Loadapprove} onClick={() => handleApprove()} className='bg-[#ae1bc7] text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
+
+              {Loadapprove ? "" : "Approve"}
+              <ScaleLoader
+                loading={Loadapprove}
+                color="#ffffff"
+                className="text-white"
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+
+            </button>}
+
+
           </div>
 
 

@@ -13,6 +13,7 @@ interface PoolsState {
   usersellectedIDunlock: number[]
   userLockedNFT:userLockedNFT,
   global:Global
+  userNTCbalance:string
 }
 
 
@@ -31,7 +32,8 @@ const initialState: PoolsState = {
     totalharvest:0,
     totalsupply:0,
     burnPool:0
-  }
+  },
+  userNTCbalance:"0"
 
 };
 
@@ -65,7 +67,9 @@ const poolsSlice = createSlice({
   
   extraReducers: (builder) => {
     builder.addCase(GetallNFTBYwallet.fulfilled, (state, action:PayloadAction<any>) => {
-    state.userNFT= action.payload;
+    state.userNFT= action.payload[0];
+    state.userNTCbalance = action.payload[1];
+
     }),
     builder.addCase(fetchUserLockData.fulfilled, (state, action:PayloadAction<any>) => {
    state.userLockedNFT = action.payload[0];

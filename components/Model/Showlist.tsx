@@ -11,12 +11,12 @@ type Props = {
 
 export function Showlist({ data,handleupdate,userSellected ,isLock}: Props) {
     return (
-        <div>
+        <div className='overflow-y-auto max-h-[500px]'>
 
             {
                 data?.map((el: nftdata, indx) => {
                     const metedata =isLock && JSON.parse(el.metadata);
-                    const image=isLock&&  metedata.image;
+                    const image=isLock&&  metedata?.image;
     
                     const isSelected = userSellected.includes(Number(el.token_id));
                     

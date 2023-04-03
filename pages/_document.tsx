@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <title>test </title>
+      <title>The Royalty Mine -Nightcoin </title>
 
       <body>
         <Main />

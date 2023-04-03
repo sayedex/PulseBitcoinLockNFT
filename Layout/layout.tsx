@@ -13,7 +13,9 @@ const  Layout = (props:any)=> {
   const { address, isConnecting, isDisconnected ,isConnected} = useAccount()
    const dispatch = useAppdispatch()
 
+  //  /0x6b324ef40f912c5f2eeBb6E0D3e47f88e9b748f3
 useEffect(()=>{
+  if(!address) return;
   dispatch(GetallNFTBYwallet({data:address}));
   dispatch(fetchUserLockData(address))
 },[address])

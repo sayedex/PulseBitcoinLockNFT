@@ -17,3 +17,27 @@ export const SocialItem = [
     },
    
 ]
+
+
+export const HeaderItem = [
+    {
+        id: 0,
+        name: "Buy",
+        link: "/",
+    }, {
+        id: 0,
+        name: "Chart",
+        link: "/",
+    }, {
+        id: 0,
+        name: "Etherscan",
+        link: "",
+    },
+    {
+        id: 0,
+        name: "Bitcoin Royalty (NFT)",
+        link: "",
+
+    },
+
+]

@@ -10,7 +10,7 @@ type Props = {}
 
 export function Lock() {
   const {address} =useAccount()
-  const { global} = useAppSelector((state) => state.pools);
+  const { global,userNFT,userLockedNFT} = useAppSelector((state) => state.pools);
 
     const ShowLockModel = useRef<{ openPopup: () => void ,closePopup:()=>void}>(null);
     const UnlockLockModel = useRef<{ openPopup: () => void ,closePopup:()=>void}>(null);
@@ -19,15 +19,25 @@ export function Lock() {
     toast.error("Walllet not connected",{
       duration: 9000,
   });
+  }else if(userNFT.length==0){
+    toast.error("You don't have any nft",{
+      duration: 9000,
+  });
   }else{
     ShowLockModel.current?.openPopup()
   }
  
  }
+ console.log(userLockedNFT?.locktoken.length);
+ 
 
  const HanleUnlockOpen = ()=>{
   if(!address){
     toast.error("Walllet not connected",{
+      duration: 9000,
+  });
+  }else if(!userLockedNFT?.locktoken){
+    toast.error("You did't lock any nft",{
       duration: 9000,
   });
   }else{
@@ -52,8 +62,8 @@ export function Lock() {
 
 
     {/* text */}
-<div className='box p-3 text-center bg-black  border-2 border-[#ff005e]'>
-<h2 className='text-white'>Burnt Royalties</h2>
+<div className='box p-3 text-center bg-black  border-2 border-[#790082]'>
+<h2 className='text-white'>Burnt Royalties {userNFT.length} of 33</h2>
 </div>
      {/* text */}
 
@@ -61,7 +71,7 @@ export function Lock() {
 {/* text */}
 <div className='box p-3 text-center text-white'>
 <h1 className=''>Total NTC in existance</h1>
-<h1>{formatNumber(Number(global?.totalsupply - global.totalBurned)/10**18)}</h1>
+<h1>{formatNumber(Number(global?.totalsupply)/10**18)} NTC</h1>
 </div>
 
 {/* text */}
