@@ -18,6 +18,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import { useApprove } from '../../hooks/useApprove';
 import { GetallNFTBYwallet,GetUserMintedValue } from "../../API/GetuserBalance";
 import {fetchUserLockData} from "../../API/Getuserinfo";
+
 import { RemovelockID } from '../../store/poolSlice';
 type Props = {
 
@@ -81,6 +82,7 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
             dispatch(fetchUserLockData(address));
           }, 5000);
         }}
+        dispatch(GetUserMintedValue(address))
       
     },
     onError() {
@@ -101,6 +103,7 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
         dispatch(RemovelockID());
         setOpen(false);
         if(address){
+          dispatch(GetUserMintedValue(address))
           setTimeout(() => {
             dispatch(fetchUserLockData(address));
           }, 5000);

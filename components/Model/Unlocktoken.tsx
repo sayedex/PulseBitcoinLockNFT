@@ -71,6 +71,7 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
             duration: 2000,
         });
         if(address){
+          dispatch(GetUserMintedValue({data:address}));
           setTimeout(() => {
             dispatch(GetallNFTBYwallet({data:address}));
           }, 4000);
@@ -98,6 +99,7 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
             duration: 2000,
         });
         if(address){
+          dispatch(GetUserMintedValue({data:address}))
           setTimeout(() => {
             dispatch(GetallNFTBYwallet({data:address}));
           }, 4000);
