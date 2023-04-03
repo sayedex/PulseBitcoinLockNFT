@@ -15,6 +15,10 @@ import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from
 import { ContentStyle, OverlayStyle } from './config';
 import { useTrsansationHelper } from '../../hooks/Trsansation';
 import ScaleLoader from "react-spinners/ScaleLoader";
+import {RemoveunlockID} from "../../store/poolSlice"
+import { fetchUserLockData } from '../../API/Getuserinfo';
+import { GetallNFTBYwallet,GetUserMintedValue } from "../../API/GetuserBalance";
+
 type Props = {
 
   Input?: any,
@@ -24,7 +28,7 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
   const { address } = useAccount();
   //costom hook for stake fund...
   const dispatch = useAppdispatch();
-  const { active, userNFT, usersellectedIDunlock,userLockedNFT} = useAppSelector((state) => state.pools);
+  const { active, userNFT, usersellectedIDunlock,userLockedNFT,loadLocknft} = useAppSelector((state) => state.pools);
   const [open, setOpen] = useState(false);
 
   const { config: unlockMultiple } = useTrsansationHelper(
@@ -57,29 +61,62 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
 
 
   const { writeAsync: unlockMultipleCall, write, data, isSuccess, error } = useContractWrite(unlockMultiple)
+  const { writeAsync: unlocks,data:singledata } = useContractWrite(unlock);
+
   const { isLoading, isFetching, isFetched, } = useWaitForTransaction({
     hash: data?.hash,
     onSettled(data, error) {
       if (data) {
         toast.success("Unlocked Successfully",{
-            duration: 9000,
+            duration: 2000,
         });
-        setOpen(false);
+        if(address){
+          setTimeout(() => {
+            dispatch(GetallNFTBYwallet({data:address}));
+          }, 4000);
+          dispatch(RemoveunlockID())
+          setOpen(false);
+         }
+   
+
+    
       }
     },
     onError(){
         toast.error("Something wrong try again",{
-            duration: 9000,
+            duration: 2000,
         });
       }
   });
 
-  const { writeAsync: unlocks, } = useContractWrite(unlock)
 
+  const { isLoading:loadsingle, } = useWaitForTransaction({
+    hash: singledata?.hash,
+    onSettled(data, error) {
+      if (data) {
+        toast.success("Unlocked Successfully",{
+            duration: 2000,
+        });
+        if(address){
+          setTimeout(() => {
+            dispatch(GetallNFTBYwallet({data:address}));
+          }, 4000);
+          dispatch(RemoveunlockID())
+          setOpen(false);
+         }
+      }
+    },
+    onError(){
+        toast.error("Something wrong try again",{
+            duration: 2000,
+        });
+      }
+  });
 
 
 
   const handleMint = async () => {
+    if(!userLockedNFT?.locktoken) return;
     if (usersellectedIDunlock.length <= 1) {
         unlocks?.();
         console.log("sdas");
@@ -91,10 +128,15 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
   }
 
 
+
+
   const handleupdate = (tokenId: any) => {
     dispatch(AddIDUnlock(tokenId))
 
 
+  }
+  const Loadmore = ()=>{
+    dispatch(fetchUserLockData(address));
   }
 
 
@@ -125,7 +167,16 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
           <div>
 
             <Showlist handleupdate={handleupdate} isLock={false} data={userLockedNFT?.locktoken} userSellected={usersellectedIDunlock} />
-
+      <div className='flex s justify-center m-3'>
+      <ScaleLoader
+         loading={loadLocknft=="loading"?true:false}
+        color="#ffffff"
+        className="text-white"
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+      </div>
+{loadLocknft=="done" && userLockedNFT?.locktoken.length ==0? <h1 className='text-white text-center text-lg p-3'>{`You didn't lock any nft`}</h1>:null}
           </div>
 
 
@@ -138,20 +189,27 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
 
 
           <div className='flex flex-row w-full justify-center gap-5 px-6 mb-4'>
+          <button  onClick={() => Loadmore()} className='bg-[#ae1bc7] uppercase text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
+            
+          Update
+
+            </button>
 
             <button disabled={isLoading} onClick={() => handleMint()} className='bg-[#ae1bc7] uppercase text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
             
-            {isLoading?"":"Unlock"}
+            {isLoading || loadsingle?"":"Unlock"}
     <ScaleLoader
-        loading={isLoading}
+        loading={isLoading || loadsingle}
         color="#ffffff"
         className="text-white"
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-    
+
             
             </button>
+
+          
           </div>
 
 

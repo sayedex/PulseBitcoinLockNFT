@@ -8,10 +8,10 @@ import { gql } from 'graphql-request';
 
 export const USER_LOCK = gql`
   query users($id: ID){
-    users(where:{id:$id,locktoken_:{lock:true}}){
+    users(where:{id:$id}){
       id
       earn
-      locktoken {
+      locktoken(where:{lock:true}) {
         id
         lock
         token_id

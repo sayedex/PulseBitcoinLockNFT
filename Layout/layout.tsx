@@ -2,7 +2,7 @@
 import {useAppSelector,useAppdispatch} from "../hooks/redux"
 import { useEffect } from 'react';
 //wagmi hook
-import { GetallNFTBYwallet } from "../API/GetuserBalance";
+import { GetallNFTBYwallet,GetUserMintedValue } from "../API/GetuserBalance";
 import { useAccount } from 'wagmi';
 import { Header } from "../components/Header/Header";
 import { fetchUserLockData } from "../API/Getuserinfo";
@@ -17,7 +17,8 @@ const  Layout = (props:any)=> {
 useEffect(()=>{
   if(!address) return;
   dispatch(GetallNFTBYwallet({data:address}));
-  dispatch(fetchUserLockData(address))
+  dispatch(fetchUserLockData(address));
+  dispatch(GetUserMintedValue({data:address}));
 },[address])
 
 

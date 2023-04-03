@@ -46,19 +46,19 @@ export function Header() {
                     {/* logo */}
                     <LazyLoadImage
                         src={NTCLOGO.src}
-                        width={80}
+                        width={70}
                         alt="NTC"
                         className=" cursor-pointer"
-                        height={80} />
+                        height={70} />
     
-                    <div className="text-xl hidden md:block font-bold font-[Nexa] ml-2 text-white text-center ">The Royalty Mine<br/><span> - Nightcoin</span></div>
-                    <div className="text-xl md:hidden font-bold font-[Nexa] ml-2 text-white">NTC</div>
+                    <div className="text-sm font-sans hidden md:block font-bold  text-white text-center ">The Royalty Mine<br/><span> - Nightcoin</span></div>
+            
                 </div>
                 {/* logo */}
 
                 {/* ul */}
-                <div className='hidden lg:flex lg:flex-row items-center gap-x-8'>
-                <div className='flex flex-row gap-2 mr-5'>
+                <div className='hidden lg:flex lg:flex-row items-center xl:gap-x-8'>
+                <div className=' hidden xl:flex  flex-row gap-2 mr-5'>
                     {/* social icon... */}
                     {SocialItem?.map((el,indx)=>{
                         return (
@@ -143,7 +143,7 @@ export function Header() {
                                 {
                                     HeaderItem && HeaderItem.map((e, index) => {
                                         return <>
-                                            <a target='_blank' rel="noreferrer" className="w-full text-white relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark hover:bg-gray-500 dark:hover:bg-slate-800 p-4 transition-all"
+                                            <a target='_blank' rel="noreferrer" className="w-full font-sans text-white relative flex items-center gap-2 cursor-pointer rounded dark:hover:bg-secondary-dark hover:bg-gray-500 dark:hover:bg-slate-800 p-4 transition-all"
                                                 href={`${e.link}`}>
                                                 <span>{e.name}</span>
                                             </a>

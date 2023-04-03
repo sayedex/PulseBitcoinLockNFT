@@ -7,11 +7,13 @@ import { useAppdispatch, useAppSelector } from "../../hooks/redux";
 import { formatNumber } from '../../utils/formatNumber';
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { useAccount } from 'wagmi';
-const totalsupplymax= 31000000
-export function Harvest() {
-    const { global,userLockedNFT} = useAppSelector((state) => state.pools);
-  const {address} = useAccount();
+const totalsupplymax= 31000000;
+import { GetallNFTBYwallet,GetUserMintedValue } from "../../API/GetuserBalance";
 
+export function Harvest() {
+    const { global,userLockedNFT,userpedingbalance} = useAppSelector((state) => state.pools);
+  const {address} = useAccount();
+  const dispatch = useAppdispatch()
     const {config} = useTrsansationHelperForStaicCall("harvest")
     const { writeAsync: Harvest, write, data, isSuccess, error } = useContractWrite(config)
     const { isLoading, isFetching, isFetched, } = useWaitForTransaction({
@@ -19,8 +21,11 @@ export function Harvest() {
       onSettled(data, error) {
         if (data) {
           toast.success("Harvest Successfull",{
-            duration: 9000,
+            duration: 2000,
         });
+        }
+        if(address){
+          dispatch(GetUserMintedValue({data:address}));
         }
       },
       onError(){
@@ -31,10 +36,15 @@ export function Harvest() {
     });
 
 
+
     const HandleHarvest = ()=>{
       if(!address){
         toast.error("Walllet not connected",{
-          duration: 9000,
+          duration: 2000,
+      });
+      }else if(Number(userpedingbalance)<=0){
+        toast.error("Not enough fund to harvest",{
+          duration: 2000,
       });
       }else{
         Harvest?.();
@@ -46,8 +56,13 @@ export function Harvest() {
     <div className=' bigBox'>
 
 
-<div className=' p-3  text-center  box'>
+<div className=' p-3 text-center  box flex flex-row justify-around'>
+<div className=''>
+<h2 className='text-white'>Mining : {formatNumber(Number(userpedingbalance))} NTC</h2>
+</div>
+<div>
 <h2 className='text-white'>Mined : {userLockedNFT?.earn? formatNumber(userLockedNFT?.earn/10**18):0} NTC</h2>
+</div>
 </div>
 
 

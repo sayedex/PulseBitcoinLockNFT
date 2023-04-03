@@ -24,3 +24,11 @@ export const Gettokeninfoa = async (contractAddress:string) => {
   }
 
 
+  export const GetmintedBalance = async (user:string) => {
+    const contract = new ethers.Contract(Testaddresss, TokenABI.abi, provider);
+    const tokenBalance = await contract.calculateReward(user);
+    const balance =  ethers.utils.formatEther(tokenBalance);
+     const balanceOf =  Number(balance).toFixed(1)
+     return balanceOf
+  }
+

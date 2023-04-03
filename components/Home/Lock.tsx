@@ -5,13 +5,13 @@ import { useAccount } from 'wagmi';
 import { Toast, toast } from 'react-hot-toast';
 import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 import { formatNumber } from '../../utils/formatNumber';
-
+import { fetchUserLockData } from '../../API/Getuserinfo';
 type Props = {}
 
 export function Lock() {
   const {address} =useAccount()
-  const { global,userNFT,userLockedNFT} = useAppSelector((state) => state.pools);
-
+  const { global,userNFT,userLockedNFT,loadnft,loadLocknft} = useAppSelector((state) => state.pools);
+ const dispatch = useAppdispatch();
     const ShowLockModel = useRef<{ openPopup: () => void ,closePopup:()=>void}>(null);
     const UnlockLockModel = useRef<{ openPopup: () => void ,closePopup:()=>void}>(null);
  const HanleLockOpen = ()=>{
@@ -19,12 +19,12 @@ export function Lock() {
     toast.error("Walllet not connected",{
       duration: 9000,
   });
-  }else if(userNFT.length==0){
+  }else if(loadnft=="done" && userNFT.length==0){
     toast.error("You don't have any nft",{
       duration: 9000,
   });
-  }else{
-    ShowLockModel.current?.openPopup()
+  }else if(loadnft=="done"){
+    ShowLockModel.current?.openPopup();
   }
  
  }
@@ -36,11 +36,8 @@ export function Lock() {
     toast.error("Walllet not connected",{
       duration: 9000,
   });
-  }else if(!userLockedNFT?.locktoken){
-    toast.error("You did't lock any nft",{
-      duration: 9000,
-  });
   }else{
+    dispatch(fetchUserLockData(address));
     UnlockLockModel.current?.openPopup()
   }
 
@@ -53,9 +50,9 @@ export function Lock() {
 
         {/* button */}
 <div className='flex flex-row gap-2  '>
-    <button onClick={()=>HanleLockOpen()} className='btn'>Lock</button>
+    <button disabled={loadnft=="loading"?true:false} onClick={()=>HanleLockOpen()} className='btn'>{loadnft=="loading"?"Loading":"Lock"}</button>
 
-    <button onClick={()=>HanleUnlockOpen()} className='btn'>unlock</button>
+    <button disabled={loadLocknft=="loading"?true:false} onClick={()=>HanleUnlockOpen()} className='btn'>{loadLocknft=="loading"?"Loading":"Unlock"}</button>
 </div>
      {/* button */}
 

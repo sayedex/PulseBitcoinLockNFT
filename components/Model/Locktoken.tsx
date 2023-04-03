@@ -16,7 +16,9 @@ import { ContentStyle, OverlayStyle } from './config';
 import { useTrsansationHelper } from '../../hooks/Trsansation';
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { useApprove } from '../../hooks/useApprove';
-
+import { GetallNFTBYwallet,GetUserMintedValue } from "../../API/GetuserBalance";
+import {fetchUserLockData} from "../../API/Getuserinfo";
+import { RemovelockID } from '../../store/poolSlice';
 type Props = {
 
   Input?: any,
@@ -62,28 +64,57 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
 
 
 
-
-
-
-
   const { writeAsync: lockMultipleCall, write, data, isSuccess, error } = useContractWrite(lockMultiple)
+  const { writeAsync: lockcall,data:singledata } = useContractWrite(lock)
+
   const { isLoading, isFetching, isFetched, } = useWaitForTransaction({
     hash: data?.hash,
     onSettled(data, error) {
       if (data) {
         toast.success("Locked Successfully", {
-          duration: 9000,
+          duration: 2000,
         });
-      }
+        dispatch(RemovelockID())
+        setOpen(false);
+        if(address){
+          setTimeout(() => {
+            dispatch(fetchUserLockData(address));
+          }, 5000);
+        }}
+      
     },
     onError() {
       toast.error("Something wrong try again", {
-        duration: 9000,
+        duration: 4000,
       });
     }
   });
 
-  const { writeAsync: lockcall, } = useContractWrite(lock)
+
+  const { isLoading:loadsingle, } = useWaitForTransaction({
+    hash: singledata?.hash,
+    onSettled(data, error) {
+      if (data) {
+        toast.success("Locked Successfully", {
+          duration: 2000,
+        });
+        dispatch(RemovelockID());
+        setOpen(false);
+        if(address){
+          setTimeout(() => {
+            dispatch(fetchUserLockData(address));
+          }, 5000);
+        }
+
+      }
+    
+    },
+    onError() {
+      toast.error("Something wrong try again", {
+        duration: 2000,
+      });
+    }
+  });
 
 
 
@@ -149,9 +180,9 @@ export const Locktoken = forwardRef(({ Input }: Props, ref: any) => {
 
             {loadinstance && tokenAllowance && <button disabled={isLoading} onClick={() => handleMint()} className='bg-[#ae1bc7] uppercase text-white font-medium text-lg hover:opacity-80 w-full min-h-[50px] rounded-xl' >
 
-              {isLoading ? "" : "Lock"}
+              {isLoading || loadsingle ? "" : "Lock"}
               <ScaleLoader
-                loading={isLoading}
+                loading={isLoading || loadsingle}
                 color="#ffffff"
                 className="text-white"
                 aria-label="Loading Spinner"
