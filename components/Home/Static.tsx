@@ -26,7 +26,7 @@ export const Static = () => {
 <LazyLoadImage className='hidden md:block  absolute transform rotate-[39deg]	  right-[-45px] top-[-28px]' src={crown.src} width={100} height={100} />
 <LazyLoadImage className='block md:hidden  absolute transform rotate-[39deg]	 right-[-15px] top-[-6px]' src={crown.src} width={70} height={70} />
 
- <h2>Global Royality</h2> 
+ <h2>Global Royalty</h2> 
  <h2>Mining Power</h2> 
  <h2>{homeinfo?.totalstaked} of 33</h2> 
 
