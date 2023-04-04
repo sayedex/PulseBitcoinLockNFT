@@ -14,6 +14,9 @@
     .bigBox {
       @apply w-11/12 md:max-w-[400px]  flex flex-col gap-3  h-full m-auto relative
     }
+    .iconBOX {
+      @apply flex flex-row justify-center items-center
+    }
   
    
 }
@@ -56,3 +59,5 @@ html{
 ::-webkit-scrollbar-track {
   background-color: #3b3837;
 }
+.lazy-load-image-background {
+  border-radius: 10px !important}

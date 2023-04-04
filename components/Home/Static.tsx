@@ -2,18 +2,23 @@ import React from 'react'
 import Test from "../../public/Token/home.jpeg"
 import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 import crown from "../../public/Token/crown.png"
-import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import NTCLOGO from "../../public/Token/NTCLOGO.png";
 export const Static = () => {
   const { active, userNFT,homeinfo} = useAppSelector((state) => state.pools);
 
   return (
-    <div className='flex flex-wrap lg:flex-row m-2 md:m-0 gap-x-5 gap-y-5 sm:p-0 md:p-8   mr-auto  z-0 	items-center '>
+    <div className='flex flex-wrap lg:flex-row m-2 md:m-0 gap-x-8 gap-y-5 sm:p-0 md:p-8   mr-auto  z-0 	items-center '>
   
 {/* image */}
 <div className='md:flex-1  w-11/12  m-auto '>
 <img className='  md:max-w-[350px] rounded-lg' src={Test.src} alt="nft" />
 </div>
 {/* image */}
+
+<div>
+<img className=' md:flex-1 hidden md:block  md:max-w-[350px] rounded-lg' src={NTCLOGO.src} alt="nft" />
+</div>
 
 
 {/* box */}
@@ -23,7 +28,7 @@ export const Static = () => {
 
  <h2>Global Royality</h2> 
  <h2>Mining Power</h2> 
- <h2>{homeinfo?.totalstaked} of 32</h2> 
+ <h2>{homeinfo?.totalstaked} of 33</h2> 
 
 </div>
 {/* box */}

@@ -4,11 +4,11 @@ export type nftdata ={
     name:string,
     symbol:string,
     token_address:string
-    tokenUri:string
+    token_uri:string
 }
 export type locktoken = {
     id:string,
-    tokenUri:string
+    token_uri:string
     token_id:string
 }
 

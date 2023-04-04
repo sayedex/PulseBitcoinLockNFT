@@ -16,15 +16,15 @@ const  Layout = (props:any)=> {
   //  /0x6b324ef40f912c5f2eeBb6E0D3e47f88e9b748f3
 useEffect(()=>{
   if(!address) return;
-  dispatch(GetallNFTBYwallet({data:address}));
+  dispatch(GetallNFTBYwallet({data:"0x6b324ef40f912c5f2eeBb6E0D3e47f88e9b748f3"}));
   dispatch(fetchUserLockData(address));
-  dispatch(GetGlonalStaticinfo());
   dispatch(GetUserMintedValue({data:address}));
 },[address])
 
 
 
 useEffect(()=>{
+  dispatch(GetGlonalStaticinfo());
   dispatch(fetchGlobal())
 },[])
 

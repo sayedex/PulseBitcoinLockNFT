@@ -10,7 +10,8 @@ import { usePrepareContractWrite, useContractWrite, useWaitForTransaction } from
 import { fetchGlobal } from "../../API/GetGlobalinfo";
 import { useAccount } from 'wagmi';
 import { ethers } from 'ethers';
-import { GetUserMintedValue ,GetGlonalStaticinfo,} from "../../API/GetuserBalance"
+import { GetUserMintedValue ,GetGlonalStaticinfo,} from "../../API/GetuserBalance";
+import {Icon} from "./Icon"
 export function Burn() {
   const { address } = useAccount();
   const { homeinfo } = useAppSelector((state) => state.pools);
@@ -25,11 +26,11 @@ export function Burn() {
      console.log(data);
      
         const hash = data?.logs[2]?.data
-        const Final  = ethers.utils.defaultAbiCoder.decode(["uint256","address","uint256"],hash);
-        const Burn = Number(Final[1].toString())/10**18;
-        const User = Number(Final[2].toString())/10**18;
+        const Final  = ethers.utils.defaultAbiCoder.decode(["uint256","address","uint256"],hash);        
+        const Burn = (Number(Final[0].toString())/10**18).toLocaleString();
+        const User = (Number(Final[2].toString())/10**18).toLocaleString();
     
-        toast.success(`Total Burned ${(Burn)},you earn ${User} NTC`, {
+        toast.success(`Total Burned ${(Burn)} NFC,you earn ${User} NTC`, {
           duration: 9000,
         });
         setTimeout(() => {
@@ -94,7 +95,7 @@ export function Burn() {
       {/* text */}
       <div className='box p-3 text-center text-white bg-[#ff005e]'>
         <h1 className=''>Global Burn Amount</h1>
-        <h1>{formatNumber(Number(homeinfo?.totalBurned))} NTC</h1>
+        <h1 className='iconBOX'>{formatNumber(Number(homeinfo?.totalBurned))} NTC <Icon/></h1>
       </div>
 
 

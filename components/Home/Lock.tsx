@@ -6,6 +6,7 @@ import { Toast, toast } from 'react-hot-toast';
 import { useAppdispatch, useAppSelector } from "../../hooks/redux"
 import { formatNumber } from '../../utils/formatNumber';
 import { fetchUserLockData } from '../../API/Getuserinfo';
+import {Icon} from "./Icon"
 type Props = {}
 
 export function Lock() {
@@ -59,8 +60,8 @@ export function Lock() {
 
 
       {/* text */}
-      <div className='box p-3 text-center bg-black  border-2 border-[#790082]'>
-        <h2 className='text-white'>{`"Burnt Royalties: ${userNFT.length} of 33"`} </h2>
+      <div className='box p-3 text-center bg-black cursor-pointer  border-2 border-[#790082]'>
+        <h2 className='text-white'>{`Burnt Royalties: ${userNFT.length} of 33`} </h2>
       </div>
       {/* text */}
 
@@ -68,7 +69,7 @@ export function Lock() {
       {/* text */}
       <div className='box p-3 text-center text-white'>
         <h1 className=''>Total NTC in existance</h1>
-        <h1>{formatNumber(Number(homeinfo.totalsupply))} NTC</h1>
+        <h1 className='iconBOX'>{formatNumber(Number(homeinfo.totalsupply))} NTC <Icon/></h1>
       </div>
 
       {/* text */}

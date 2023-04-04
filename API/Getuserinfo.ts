@@ -15,7 +15,7 @@ export const USER_LOCK = gql`
         id
         lock
         token_id
-        tokenUri
+        token_uri
       }
     }
   }

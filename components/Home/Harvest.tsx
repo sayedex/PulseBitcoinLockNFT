@@ -10,6 +10,7 @@ import { useAccount } from 'wagmi';
 const totalsupplymax = 31000000;
 import { GetallNFTBYwallet, GetUserMintedValue,GetGlonalStaticinfo } from "../../API/GetuserBalance";
 import { fetchGlobal } from "../../API/GetGlobalinfo";
+import {Icon} from "./Icon"
 export function Harvest() {
   const { userLockedNFT, userpedingbalance,homeinfo ,userTotalminted} = useAppSelector((state) => state.pools);
   const { address } = useAccount();
@@ -94,7 +95,7 @@ export function Harvest() {
       {/* text */}
       <div className=' p-3 text-center  box'>
         <h1 className=''>Total Mined : {Number(homeinfo.totalsupply).toLocaleString()} NTC</h1>
-        <h1>of {totalsupplymax.toLocaleString()} NTC</h1>
+        <h1 className='iconBOX'>of {totalsupplymax.toLocaleString()} NTC <Icon/></h1>
       </div>
 
 
