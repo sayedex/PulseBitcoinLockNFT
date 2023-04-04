@@ -9,11 +9,11 @@ import { bsc,bscTestnet ,mainnet} from "wagmi/chains";
 //for eth u need to put mainnet only...
 
 //chiand ID
-export const chains = [bscTestnet];
+export const chains = [mainnet];
 
 
 // RPC
-export const RPC_URL = 'https://data-seed-prebsc-2-s1.binance.org:8545';
+export const RPC_URL = 'https://eth-mainnet.g.alchemy.com/v2/pIJkI_T6lQ0_TZ9mw6DLakx0L_v3TdMT';
 
 
 export const SocialItem = [

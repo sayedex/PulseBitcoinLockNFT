@@ -145,6 +145,8 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
     dispatch(fetchUserLockData(address));
   }
 
+  // console.log(!userLockedNFT);
+  
 
   return (
     <div>
@@ -182,7 +184,7 @@ export const Unlocktoken = forwardRef(({ Input }: Props, ref: any) => {
         data-testid="loader"
       />
       </div>
-{loadLocknft=="done" && userLockedNFT?.locktoken.length ==0? <h1 className='text-white text-center text-lg p-3'>{`You didn't lock any nft`}</h1>:null}
+{loadLocknft=="done" &&  userLockedNFT?.locktoken.length ==0 || !userLockedNFT? <h1 className='text-white text-center text-lg p-3'>{`You didn't lock any nft`}</h1>:null}
           </div>
 
 

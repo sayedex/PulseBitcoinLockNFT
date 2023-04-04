@@ -2,8 +2,8 @@
 
 //end 28560926
 export const Collectionaddress  = "0x1f06e2bb54d4d08b0ebd01be66db2f7ccb9c814b" // NFT collection address...
-export const Staking  ="0x22CdC004DEa6E557D01DaB649688911355217eB2";  // core staking contract....
-export const erc721 = "0xf92F685855F87ec96C995c3C512f8D7bA578E5eE"; // u need to put ur collection address
+export const Staking  ="0xc80ea8a4cdb33405f4010fb1b87e111152fff6f9";  // core staking contract....
+export const erc721 = "0x1f06e2bb54d4d08b0ebd01be66db2f7ccb9c814b"; // u need to put ur collection address
 
 // Collectionaddress and erc721 put ur collection address..
 

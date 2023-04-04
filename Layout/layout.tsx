@@ -16,7 +16,7 @@ const  Layout = (props:any)=> {
   //  /0x6b324ef40f912c5f2eeBb6E0D3e47f88e9b748f3
 useEffect(()=>{
   if(!address) return;
-  dispatch(GetallNFTBYwallet({data:"0x6b324ef40f912c5f2eeBb6E0D3e47f88e9b748f3"}));
+  dispatch(GetallNFTBYwallet({data:address}));
   dispatch(fetchUserLockData(address));
   dispatch(GetUserMintedValue({data:address}));
 },[address])
