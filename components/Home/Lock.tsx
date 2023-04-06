@@ -60,8 +60,8 @@ export function Lock() {
 
 
       {/* text */}
-      <div className='box p-3 text-center bg-black cursor-pointer  border-2 border-[#790082]'>
-        <h2 className='text-white'>{`Burnt Royalties: ${userNFT.length} of 33`} </h2>
+      <div className='box p-3 text-center bg-black   border-2 border-[#790082]'>
+        <h2 className='text-white'>{`Burnt Royalties: 0 of 33`} </h2>
       </div>
       {/* text */}
 
