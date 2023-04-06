@@ -28,7 +28,7 @@ export const Static = () => {
 
  <h2>Global Royalty</h2> 
  <h2>Mining Power</h2> 
- <h2>0 of 33</h2> 
+ <h2>{homeinfo?.totalstaked} of 33</h2> 
 
 </div>
 {/* box */}
