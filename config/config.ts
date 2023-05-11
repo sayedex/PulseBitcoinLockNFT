@@ -14,7 +14,7 @@ export const chains = [mainnet];
 
 // RPC
 export const RPC_URL = 'https://eth-mainnet.g.alchemy.com/v2/pIJkI_T6lQ0_TZ9mw6DLakx0L_v3TdMT';
-
+export const LogoLink =""
 
 export const SocialItem = [
     {

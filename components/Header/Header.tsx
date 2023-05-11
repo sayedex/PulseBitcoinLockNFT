@@ -11,7 +11,8 @@ import { Tokenbox } from './Tokenbox';
 import NTCLOGO from "../../public/Token/NTCLOGO.png";
 import pulsebitcoin from "../../public/Token/pulsebitcoin.png";
 import { HeaderItem  } from '../../config/config';
-import { useAppdispatch, useAppSelector } from "../../hooks/redux"
+import { useAppdispatch, useAppSelector } from "../../hooks/redux";
+import {LogoLink} from "../../config/config"
 export function Header() {
     const { theme, setTheme } = useTheme();
     const [isMounted, setIsMounted] = useState(false);
@@ -31,6 +32,7 @@ export function Header() {
             <div className=' bg-opacity-[75%] dark:border-secondary-dark transform backdrop-blur-md text-black dark:text-white z-50  w-full h-[85px] px-6 md:px-10 flex  items-center justify-between'>
 
                 <div className="cursor-pointer flex justify-center items-center">
+                    <a href={LogoLink} target='_blank' rel="noreferrer">
                     {/* logo */}
                     <LazyLoadImage
                         src={NTCLOGO.src}
@@ -38,6 +40,7 @@ export function Header() {
                         alt="NTC"
                         className=" cursor-pointer"
                         height={70} />
+                        </a>
     
                     <div className="text-sm font-sans hidden md:block font-bold  text-white text-center ">The Royalty Mine<br/><span> - Nightcoin</span></div>
             
