@@ -35,11 +35,11 @@ export const HeaderItem = [
     {
         id: 0,
         name: "Buy",
-        link: "/",
+        link: "",
     }, {
         id: 1,
         name: "Chart",
-        link: "/",
+        link: "",
     }, {
         id: 2,
         name: "Etherscan",
